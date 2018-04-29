@@ -302,8 +302,8 @@ if __name__ == '__main__':
                 p = m.predict(data)
                 predictions += p
 
-            print(sess.run(tf.argmax(predictions, 1))
-            print(sess.run(np.reshape(labels, (-1))))
+            print(sess.run(tf.argmax(predictions, 1)))
+            print(np.reshape(labels, (-1)))
 
             ensemble_correct_prediction = tf.equal(tf.argmax(predictions, 1), 
                                                    tf.argmax(labels, 1))              

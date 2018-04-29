@@ -25,8 +25,6 @@ import os
 import numpy as np
 from torch.utils.data import Dataset
 
-from kor_char_parser import decompose_str_as_one_hot
-
 from sklearn.model_selection import train_test_split
 from numpy import *
 
@@ -38,7 +36,7 @@ class MovieReviewDataset(Dataset):
     영화리뷰 데이터를 읽어서, tuple (데이터, 레이블)의 형태로 리턴하는 파이썬 오브젝트 입니다.
     """
 
-    def __init__(self, dataset_path: str, max_length: int, is_train: bool =True):
+    def __init__(self, dataset_path, max_length, is_train =True):
         """
         initializer
 
@@ -54,7 +52,7 @@ class MovieReviewDataset(Dataset):
             data_label = os.path.join(dataset_path, 'test', 'test_label')
         
         # 영화리뷰 데이터를 읽고 preprocess까지 진행합니다
-        with open(data_review, 'rt', encoding='utf-8') as f:
+        with open(data_review, 'rt') as f:
             text = []
             text_dataset = f.readlines()
             for t in text_dataset: 
@@ -90,7 +88,7 @@ class MovieReviewDataset(Dataset):
     def get_depth(self):
         return self.depth
 
-def preprocess(data: list, max_length: int):
+def preprocess(data, max_length):
     """
      입력을 받아서 딥러닝 모델이 학습 가능한 포맷으로 변경하는 함수입니다.
      기본 제공 알고리즘은 char2vec이며, 기본 모델이 MLP이기 때문에, 입력 값의 크기를 모두 고정한 벡터를 리턴합니다.
